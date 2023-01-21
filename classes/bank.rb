@@ -14,8 +14,8 @@ class Bank
 
   def get_a_bet(bet = MINIMUM_RATE)
     self.bet = bet
-    player.cash_down(bet)
-    dealer.cash_down(bet)
+    @player -= bet
+    @Dealer -= bet
     self.cash = bet * 2
   end
 

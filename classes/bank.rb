@@ -6,12 +6,13 @@ class Bank
   include GameInfo
 
   attr_reader :cash, :bet
+  attr_reader :player, :dealer
 
   def initialize
     @cash = 0
   end
 
-  def get_a_bet(player, dealer, bet = MINIMUM_RATE)
+  def get_a_bet(bet = MINIMUM_RATE)
     self.bet = bet
     player.cash_down(bet)
     dealer.cash_down(bet)

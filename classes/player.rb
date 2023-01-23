@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'member_of_game'
 require_relative '../modules/helper_io'
 require_relative '../modules/menu'
@@ -11,7 +13,7 @@ class Player < MemberOfGame
   def step
     print_menu_steps
 
-    step_value = select_value(["0", "1", "2"]).to_i
+    step_value = %w([1 2 3]).to_i
     send(menu[step_value][:command])
 
     sleep(MESSAGE_PAUSE_IN_SECONDS)
@@ -22,6 +24,6 @@ class Player < MemberOfGame
   private
 
   def open_cards
-    puts "Открываем карты!"
+    puts 'Открываем карты!'
   end
 end

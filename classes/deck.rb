@@ -1,5 +1,7 @@
-require_relative "card"
-require_relative "../modules/game_info"
+# frozen_string_literal: true
+
+require_relative 'card'
+require_relative '../modules/game_info'
 
 # колода карт
 class Deck

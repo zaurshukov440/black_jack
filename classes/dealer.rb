@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require_relative 'member_of_game'
 require_relative '../modules/game_info'
 
 # дилер
 class Dealer < MemberOfGame
   def initialize(deck_source)
-    super("Дилер", deck_source)
+    super('Дилер', deck_source)
   end
 
   def step

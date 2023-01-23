@@ -1,6 +1,8 @@
-require_relative "../classes/game"
-require_relative "../classes/member_of_game"
-require_relative "game_info"
+# frozen_string_literal: true
+
+require_relative '../classes/game'
+require_relative '../classes/member_of_game'
+require_relative 'game_info'
 
 # Вспомогательные методы для ввода/вывода информации
 module HelperIO
@@ -8,12 +10,10 @@ module HelperIO
 
   def input_value(text)
     puts text
-    print "> "
+    print '> '
 
-    value = ""
-    while value.empty? do
-      value = gets.chomp
-    end
+    value = ''
+    value = gets.chomp while value.empty?
 
     value
   end
@@ -21,9 +21,9 @@ module HelperIO
   def select_value(value_variants, text = nil)
     puts text unless text.nil? || text.empty?
 
-    value = ""
-    while !value_variants.include?(value) do
-      print "> "
+    value = ''
+    until value_variants.include?(value)
+      print '> '
       value = gets.chomp
       puts
     end
@@ -32,11 +32,11 @@ module HelperIO
   end
 
   def divider
-    "-" * 20
+    '-' * 20
   end
 
   def visualize_info
-    system "clear"
+    system 'clear'
     visualize_bank
     visualize_member_of_game(Game.dealer)
     visualize_member_of_game(Game.player)
@@ -52,15 +52,15 @@ module HelperIO
   end
 
   def visualize_member_of_game(member)
-    puts "#{member.name}"
+    puts member.name.to_s
     puts "На счету: #{member.cash}$"
 
     card_images = member.cards.empty? ? [] : member.cards.map(&:image)
 
     if member.cards_visibled?
-      puts "Карты: #{card_images.join(" ")} - #{member.score} очков"
+      puts "Карты: #{card_images.join(' ')} - #{member.score} очков"
     else
-      puts "Карты: #{card_images.join(" ")} - ✕ очков"
+      puts "Карты: #{card_images.join(' ')} - ✕ очков"
     end
 
     puts "\n"
@@ -70,7 +70,7 @@ module HelperIO
     messages = {
       player_win: "Вы выиграли этот раунд. Сумма ваших очков ближе к #{GameInfo::WIN_SCORE}",
       player_loss: "Дилер выиграл этот раунд. Вы превысили #{GameInfo::WIN_SCORE} очков",
-      draw: "Ничья. Вы с дилером набрали одинаковое количество очков",
+      draw: 'Ничья. Вы с дилером набрали одинаковое количество очков',
       dealer_win: "Дилер выиграл этот раунд. Сумма его очков ближе к #{GameInfo::WIN_SCORE}",
       dealer_loss: "Вы выиграли этот раунд. Дилер превысил #{GameInfo::WIN_SCORE}"
     }
@@ -79,18 +79,18 @@ module HelperIO
   end
 
   def print_hello_message(player_name)
-    system "clear"
+    system 'clear'
     puts "Добро пожаловать в игру Black Jack, #{player_name}!"
     sleep(GameInfo::MESSAGE_PAUSE_IN_SECONDS)
   end
 
   def print_bye_message(reason)
-    system "clear"
-    puts "Игра окончена"
+    system 'clear'
+    puts 'Игра окончена'
     bye_messages = {
-      player_no_cash: "У вас закончились деньги, чтобы сделать ставку",
-      dealer_no_cash: "У дилера закончились деньги, чтобы сделать ставку",
-      player_stop_game: "Вы решили остановить игру"
+      player_no_cash: 'У вас закончились деньги, чтобы сделать ставку',
+      dealer_no_cash: 'У дилера закончились деньги, чтобы сделать ставку',
+      player_stop_game: 'Вы решили остановить игру'
     }
 
     puts bye_messages[reason]
@@ -108,6 +108,6 @@ module HelperIO
 
     return puts "Увы, но вы проиграли #{delta_cash} $" if delta_cash.negative?
 
-    puts "Что было в карманах, то и осталось. Зато мы прекрасно провели время за игрой"
+    puts 'Что было в карманах, то и осталось. Зато мы прекрасно провели время за игрой'
   end
 end

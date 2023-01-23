@@ -1,25 +1,27 @@
+# frozen_string_literal: true
+
 module Menu
   def menu
     {
       0 => {
         command: :pass,
-        text: "Пропустить"
+        text: 'Пропустить'
       },
 
       1 => {
         command: :add_card,
-        text: "Добавить карту"
+        text: 'Добавить карту'
       },
 
       2 => {
         command: :open_cards,
-        text: "Открыть карты"
+        text: 'Открыть карты'
       }
     }
   end
 
   def print_menu_steps
-    puts "Сделайте ход"
+    puts 'Сделайте ход'
     menu.each do |key, value|
       puts "#{key} - #{value[:text]}"
     end

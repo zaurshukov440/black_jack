@@ -1,4 +1,6 @@
-require_relative "../modules/game_info"
+# frozen_string_literal: true
+
+require_relative '../modules/game_info'
 
 # игральная карта
 class Card
@@ -7,7 +9,8 @@ class Card
   attr_reader :suit, :value
 
   def initialize(suit, value)
-    @suit, @value = suit, value
+    @suit = suit
+    @value = value
     @hidden = true
   end
 
@@ -20,20 +23,16 @@ class Card
   end
 
   def hide
-    self.hidden = true
+    @hidden = true
   end
 
   def make_visible
-    self.hidden = false
+    @hidden = false
   end
 
   def image
-    return "🂠" if hidden?
+    return '🂠' if hidden?
 
     "#{value}#{suit}"
   end
-
-  private
-
-  attr_accessor :hidden
 end

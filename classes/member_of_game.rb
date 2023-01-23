@@ -1,7 +1,9 @@
-require_relative "deck"
-require_relative "bank"
-require_relative "../modules/game_info"
-require_relative "../modules/menu"
+# frozen_string_literal: true
+
+require_relative 'deck'
+require_relative 'bank'
+require_relative '../modules/game_info'
+require_relative '../modules/menu'
 
 # участник игры (класс-родитель для игрока и дилера)
 class MemberOfGame
@@ -19,12 +21,12 @@ class MemberOfGame
 
   def take_card
     card = @deck_source.pop
-    card.make_visible if self.instance_of?(Player)
+    card.make_visible if instance_of?(Player)
     cards << card
   end
 
-  def return_cards
-    while (cards.length.positive?) do
+  def cards
+    while cards.length.positive?
       card = cards.pop
       card.hide
       @deck_source.push(card)
@@ -42,15 +44,19 @@ class MemberOfGame
   def score
     score_value = 0
     cards.each do |card|
-      score_value += card.value.to_i if NUMERIC_CARDS.include?(card.value)
-      score_value += 10 if PICTURE_CARDS.include?(card.value)
-      score_value += score_for_ace_card(score_value) if card.value == 'A'
+      score_value += if NUMERIC_CARDS.include?(card.value)
+                       card.value.to_i
+                     elsif PICTURE_CARDS.include?(card.value)
+                       10
+                     elsif card.value == 'A'
+                       score_for_ace_card(score_value)
+                     end || 0
     end
     score_value
   end
 
   def cards_visibled?
-    cards.all? { |card| card.visibled? == true }
+    cards.all?(&:visibled?)
   end
 
   private
@@ -64,11 +70,11 @@ class MemberOfGame
   end
 
   def pass
-    puts self.instance_of?(Dealer) ? "Дилер пропускает ход" : "Вы пропускаете ход"
+    puts instance_of?(Dealer) ? 'Дилер пропускает ход' : 'Вы пропускаете ход'
   end
 
   def add_card
-    puts self.instance_of?(Dealer) ? "Дилер берёт карту" : "Вы берёте карту"
+    puts instance_of?(Dealer) ? 'Дилер берёт карту' : 'Вы берёте карту'
     take_card
   end
 

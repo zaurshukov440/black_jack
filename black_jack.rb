@@ -1,8 +1,10 @@
-require_relative "classes/game"
-require_relative "modules/helper_io"
+# frozen_string_literal: true
+
+require_relative 'classes/game'
+require_relative 'modules/helper_io'
 
 extend HelperIO
 
-player_name = input_value("Введите ваше имя: ")
+player_name = input_value('Введите ваше имя: ')
 
-Game.start(player_name)
+Game.new.start(player_name)

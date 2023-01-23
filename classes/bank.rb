@@ -1,12 +1,13 @@
-require_relative "member_of_game"
-require_relative "../modules/game_info"
+# frozen_string_literal: true
+
+require_relative 'member_of_game'
+require_relative '../modules/game_info'
 
 # игровой банк для хранения ставок
 class Bank
   include GameInfo
 
-  attr_reader :cash, :bet
-  attr_reader :player, :dealer
+  attr_reader :cash, :bet, :player, :dealer
 
   def initialize
     @cash = 0
@@ -15,7 +16,7 @@ class Bank
   def get_a_bet(bet = MINIMUM_RATE)
     self.bet = bet
     @player -= bet
-    @Dealer -= bet
+    @dealer -= bet
     self.cash = bet * 2
   end
 
@@ -24,7 +25,7 @@ class Bank
     self.cash = 0
   end
 
-  def return_a_bet(player, dealer)
+  def back_a_bet(player, dealer)
     player.cash_up(bet)
     dealer.cash_up(bet)
     self.cash = 0

@@ -1,9 +1,11 @@
-require_relative "player"
-require_relative "dealer"
-require_relative "deck"
-require_relative "bank"
-require_relative "../modules/helper_io"
-require_relative "../modules/game_info"
+# frozen_string_literal: true
+
+require_relative 'player'
+require_relative 'dealer'
+require_relative 'deck'
+require_relative 'bank'
+require_relative '../modules/helper_io'
+require_relative '../modules/game_info'
 
 # игровая механика
 class Game
@@ -15,7 +17,7 @@ class Game
     attr_reader :player, :dealer, :deck, :bank, :current_gamer
 
     # инициализация и старт игры
-    def start(player_name)
+    def initialize(player_name)
       print_hello_message(player_name)
 
       @deck = Deck.new
@@ -44,7 +46,7 @@ class Game
       2.times { dealer.take_card }
 
       visualize_info
-      puts "Делаем ставки, господа!"
+      puts 'Делаем ставки, господа!'
       sleep(MESSAGE_PAUSE_IN_SECONDS)
 
       bank.get_a_bet(player, dealer)
@@ -56,12 +58,12 @@ class Game
       winner = nil
       round_end = false
 
-      until round_end do
+      until round_end
         step = current_gamer.step
 
         round_end = gamers_has_maximum_of_cards? ||
-          step == :open_cards ||
-          player.score > WIN_SCORE
+                    step == :open_cards ||
+                    player.score > WIN_SCORE
 
         visualize_info
 
@@ -114,7 +116,7 @@ class Game
 
       return [false, :dealer_no_cash] unless can_dealer_get_a_bet?
 
-      continue_game = input_value("Продолжить игру? Если согласны введите Y").downcase
+      continue_game = input_value('Продолжить игру? Если согласны введите Y').downcase
 
       return [false, :player_stop_game] unless continue_game == 'y'
 

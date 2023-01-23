@@ -5,6 +5,6 @@ require_relative 'modules/helper_io'
 
 extend HelperIO
 
-player_name = input_value('Введите ваше имя: ')
 
-Game.new.start(player_name)
+
+Game.new.start
